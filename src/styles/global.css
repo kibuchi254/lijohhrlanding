@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #030A8C;
+  --primary-dark: #020659;
+  --primary-hover: #040a7a;
+  --accent: #081C59;
+  --accent-light: #0a2a7a;
+  --cta: #F29F05;
+  --cta-hover: #d48f04;
+  --cta-dark: #c28004;
+  --text-primary: #0D0D0D;
+  --white: #FFFFFF;
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-white text-gray-900 antialiased;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+  }
+}
+
+@layer components {
+  /* Container */
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary via-primary-dark to-accent bg-clip-text text-transparent;
+  }
+
+  /* Section padding */
+  .section-padding {
+    @apply py-20 lg:py-32;
+  }
+
+  /* Card hover effect */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply bg-cta hover:bg-cta-hover text-white font-semibold transition-all duration-200 shadow-lg hover:shadow-xl;
+  }
+
+  .btn-secondary {
+    @apply border-2 border-primary/10 bg-transparent hover:bg-primary/5 text-primary transition-all duration-200;
+  }
+
+  /* Navigation link */
+  .nav-link {
+    @apply text-sm font-medium text-gray-600 hover:text-primary transition-colors;
+  }
+
+  /* Feature icon */
+  .feature-icon {
+    @apply h-12 w-12 rounded-lg flex items-center justify-center;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

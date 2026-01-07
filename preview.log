@@ -1,0 +1,8 @@
+$ astro preview --port 3000 --port "3000"
+
+ astro  v5.16.6 ready in 25 ms
+
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+
+error: script "preview" exited with code 143

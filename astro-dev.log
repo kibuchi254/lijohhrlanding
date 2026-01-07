@@ -1,0 +1,19 @@
+$ astro dev --port 3000 2>&1 | tee dev.log
+17:30:07 [types] Generated 0ms
+17:30:07 [content] Syncing content
+17:30:07 [content] Synced content
+17:30:07 [vite] Re-optimizing dependencies because vite config has changed
+
+ astro  v5.16.6 ready in 923 ms
+
+┃ Local    http://localhost:3000/
+┃ Network  use --host to expose
+
+17:30:07 watching for file changes...
+17:31:00 Configuration file updated. Restarting...
+17:31:00 [vite] Re-optimizing dependencies because vite config has changed
+17:31:01 [content] Syncing content
+17:31:01 [content] Synced content
+17:31:01 [types] Generated 339ms
+17:31:01 [vite] Re-optimizing dependencies because vite config has changed
+error: script "dev" was terminated by signal SIGTERM (Polite quit request)
