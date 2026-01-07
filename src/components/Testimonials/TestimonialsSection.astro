@@ -1,96 +1,141 @@
 ---
-// Testimonials Section Component
+/** * PREMIUM KENYAN TESTIMONIALS: THE TRUST GALLERY
+ * Consistency: Studio White, Plus Jakarta Sans, Kenyan Context
+ * Colors: Deep Blue (#030A8C), Gold (#F29F05), Dark (#0D0D0D)
+ */
 ---
 
-<section id="testimonials" class="section-padding bg-gray-50/50">
-  <div class="container">
-    <!-- Section Header -->
-    <div class="max-w-3xl mx-auto text-center mb-16 animate-slide-up">
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors mb-4">
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+<section id="testimonials" class="relative py-24 lg:py-40 bg-white overflow-hidden">
+  
+  <div class="absolute inset-0 z-0 pointer-events-none">
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(#030A8C 1px, transparent 1px); background-size: 32px 32px;"></div>
+    <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-[#030A8C]/5 rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#F29F05]/5 rounded-full blur-[120px]"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    
+    <div class="max-w-3xl mx-auto text-center mb-24">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-50 border border-gray-100 mb-8">
+        <svg class="w-3.5 h-3.5 text-[#F29F05]" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
         </svg>
-        <span class="text-sm font-semibold">Testimonials</span>
+        <span class="text-[11px] font-black uppercase tracking-[0.2em] text-[#030A8C]">Global Trust</span>
       </div>
 
-      <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
-        Loved by HR Teams Worldwide
+      <h2 class="text-5xl lg:text-7xl font-black text-[#0D0D0D] tracking-tight leading-[0.95] mb-6">
+        The Verdict from <br/> 
+        <span class="relative inline-block">
+          Industry Leaders.
+          <svg class="absolute -bottom-2 left-0 w-full h-3 text-[#030A8C] opacity-30" viewBox="0 0 100 20" preserveAspectRatio="none">
+            <path d="M2,15 Q50,5 98,15" stroke="currentColor" stroke-width="6" stroke-linecap="round"></path>
+          </svg>
+        </span>
       </h2>
-      <p class="text-lg text-gray-600">
-        See what our customers have to say about LijohHr
+      <p class="text-xl text-gray-400 font-medium leading-relaxed">
+        See how Kenya’s most ambitious HR teams are redefining payroll with LijohHr.
       </p>
     </div>
 
-    <!-- Testimonials Grid -->
-    <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-      <!-- Testimonial 1 -->
-      <div class="card-hover bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-primary/20 animate-fade-in" style="animation-delay: 0.2s;">
-        <div class="flex items-center gap-0.5 mb-4" role="img" aria-label="5 star rating">
+    <div class="grid md:grid-cols-3 gap-8">
+      
+      <div class="group relative p-10 rounded-[48px] bg-[#F8FAFC] border border-gray-100 hover:bg-white hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+        <div class="flex gap-1 mb-8">
           {[1, 2, 3, 4, 5].map(() => (
-            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 text-[#F29F05]" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
           ))}
         </div>
-        <p class="text-gray-600 mb-6 leading-relaxed">
-          "LijohHr transformed our HR operations completely. The AI insights helped us reduce turnover by 40% in just six months."
+        
+        <p class="text-xl font-bold text-[#0D0D0D] mb-10 leading-relaxed tracking-tight">
+          "LijohHr transformed our Kenyan operations. The AI insights helped us reduce employee turnover by 40% in just six months."
         </p>
-        <div class="flex items-center gap-3">
-          <div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
-            <span class="text-sm font-semibold text-primary">SM</span>
+
+        <div class="flex items-center gap-4 border-t border-gray-200/50 pt-8">
+          <div class="h-14 w-14 rounded-2xl bg-[#030A8C] flex items-center justify-center text-white shadow-lg overflow-hidden">
+             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=kenya-exec-1" alt="Sarah" />
           </div>
           <div>
-            <div class="font-semibold text-text-primary text-sm">Sarah Mitchell</div>
-            <div class="text-xs text-gray-500">HR Director, TechCorp</div>
+            <div class="font-black text-[#0D0D0D] text-lg tracking-tighter">Sarah Mitchell</div>
+            <div class="text-xs font-bold text-[#030A8C] uppercase tracking-widest">HR Director, Safaricom Tech</div>
           </div>
         </div>
       </div>
 
-      <!-- Testimonial 2 -->
-      <div class="card-hover bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-cta/20 animate-fade-in" style="animation-delay: 0.4s;">
-        <div class="flex items-center gap-0.5 mb-4" role="img" aria-label="5 star rating">
+      <div class="group relative p-10 rounded-[48px] bg-[#0D0D0D] text-white shadow-2xl transition-all duration-500 md:scale-105 z-20">
+        <div class="flex gap-1 mb-8">
           {[1, 2, 3, 4, 5].map(() => (
-            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 text-[#F29F05]" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
             </svg>
           ))}
         </div>
-        <p class="text-gray-600 mb-6 leading-relaxed">
-          "The automated payroll feature saves us 20+ hours every month. Compliance worries are a thing of the past now."
+        
+        <p class="text-xl font-bold text-white mb-10 leading-relaxed tracking-tight">
+          "The automated M-Pesa payroll saving us 20+ hours monthly. KRA compliance worries are a thing of the past now."
         </p>
-        <div class="flex items-center gap-3">
-          <div class="h-10 w-10 rounded-full bg-cta/20 flex items-center justify-center">
-            <span class="text-sm font-semibold text-cta">JK</span>
+
+        <div class="flex items-center gap-4 border-t border-white/10 pt-8">
+          <div class="h-14 w-14 rounded-2xl bg-[#F29F05] flex items-center justify-center text-[#0D0D0D] shadow-lg overflow-hidden">
+             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=kenya-exec-2" alt="James" />
           </div>
           <div>
-            <div class="font-semibold text-text-primary text-sm">James Kim</div>
-            <div class="text-xs text-gray-500">CFO, StartupXYZ</div>
+            <div class="font-black text-white text-lg tracking-tighter">James Kim</div>
+            <div class="text-xs font-bold text-[#F29F05] uppercase tracking-widest">CFO, Equity Fintech</div>
+          </div>
+        </div>
+        <div class="absolute top-10 right-10">
+           <div class="bg-white/10 border border-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest">Verified Kenyan Partner</div>
+        </div>
+      </div>
+
+      <div class="group relative p-10 rounded-[48px] bg-[#F8FAFC] border border-gray-100 hover:bg-white hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+        <div class="flex gap-1 mb-8">
+          {[1, 2, 3, 4, 5].map(() => (
+            <svg class="w-5 h-5 text-[#F29F05]" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          ))}
+        </div>
+        
+        <p class="text-xl font-bold text-[#0D0D0D] mb-10 leading-relaxed tracking-tight">
+          "Best HR platform in Kenya. The biometric onboarding is seamless and employee satisfaction has spiked significantly."
+        </p>
+
+        <div class="flex items-center gap-4 border-t border-gray-200/50 pt-8">
+          <div class="h-14 w-14 rounded-2xl bg-gray-200 flex items-center justify-center overflow-hidden">
+             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=kenya-exec-3" alt="Emily" />
+          </div>
+          <div>
+            <div class="font-black text-[#0D0D0D] text-lg tracking-tighter">Emily Rodriguez</div>
+            <div class="text-xs font-bold text-[#030A8C] uppercase tracking-widest">HR Manager, KCB Group</div>
           </div>
         </div>
       </div>
 
-      <!-- Testimonial 3 -->
-      <div class="card-hover bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-accent/20 animate-fade-in" style="animation-delay: 0.6s;">
-        <div class="flex items-center gap-0.5 mb-4" role="img" aria-label="5 star rating">
-          {[1, 2, 3, 4, 5].map(() => (
-            <svg class="w-5 h-5 text-cta" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-            </svg>
-          ))}
-        </div>
-        <p class="text-gray-600 mb-6 leading-relaxed">
-          "Best HR platform we've ever used. The onboarding flow is seamless and employee satisfaction has increased significantly."
-        </p>
-        <div class="flex items-center gap-3">
-          <div class="h-10 w-10 rounded-full bg-accent/20 flex items-center justify-center">
-            <span class="text-sm font-semibold text-accent">ER</span>
-          </div>
-          <div>
-            <div class="font-semibold text-text-primary text-sm">Emily Rodriguez</div>
-            <div class="text-xs text-gray-500">HR Manager, InnovateInc</div>
-          </div>
-        </div>
-      </div>
     </div>
+
+    <div class="mt-24 text-center">
+       <p class="text-[10px] font-black text-gray-300 uppercase tracking-[0.4em] mb-10">Driving Performance for Kenya's Best</p>
+       <div class="flex flex-wrap justify-center gap-16 items-center opacity-30 grayscale contrast-125">
+          <span class="text-2xl font-black text-[#020659]">500+ CORPORATES</span>
+          <span class="text-2xl font-black text-[#020659]">100% SECURE</span>
+          <span class="text-2xl font-black text-[#020659]">G2 HIGH PERFORMER</span>
+       </div>
+    </div>
+
   </div>
 </section>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap');
+
+  section {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  h2 {
+    text-wrap: balance;
+  }
+</style>
