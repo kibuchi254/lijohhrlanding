@@ -8,7 +8,7 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
   ],
-  site: 'https://lijohhr.com',
+  site: 'https://hr.digikenya.co.ke',
   compress: true,
   output: 'static',
   build: {
