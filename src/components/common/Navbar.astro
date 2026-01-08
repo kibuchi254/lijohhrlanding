@@ -1,6 +1,6 @@
 ---
-/** * PREMIUM TITAN NAVIGATION
- * Features: Floating Glassmorphism, Interactive Hover States, Mobile Logic
+/** * PREMIUM TITAN NAVIGATION - MOBILE FIX
+ * Features: Floating Glassmorphism, Interactive Hover States, Mobile Logic, Proper Spacing
  */
 interface Props {
   currentPage?: string;
@@ -63,16 +63,17 @@ const { currentPage = 'home' } = Astro.props;
       </button>
     </div>
 
-    <div id="mobile-menu" class="hidden md:hidden pb-8 animate-in fade-in slide-in-from-top-4 duration-300">
+    <!-- MOBILE MENU - Now inside nav for proper z-stacking -->
+    <div id="mobile-menu" class="hidden md:hidden pb-8 animate-in fade-in slide-in-from-top-4 duration-300 max-h-[calc(100vh-120px)] overflow-y-auto">
       <div class="flex flex-col gap-4">
         {['Features', 'Pricing', 'How It Works', 'Testimonials'].map((item) => (
-          <a href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} class="text-lg font-bold text-[#0D0D0D] px-4 py-3 rounded-2xl hover:bg-gray-50">
+          <a href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} class="text-lg font-bold text-[#0D0D0D] px-4 py-3 rounded-2xl hover:bg-gray-50 transition-colors">
             {item}
           </a>
         ))}
         <div class="h-px bg-gray-100 my-2"></div>
-        <a href="/signin" class="text-lg font-bold text-[#0D0D0D] px-4 py-3">Sign In</a>
-        <a href="#pricing" class="bg-[#F29F05] text-[#0D0D0D] px-6 py-4 rounded-2xl font-black text-center shadow-lg shadow-[#F29F05]/20">
+        <a href="/signin" class="text-lg font-bold text-[#0D0D0D] px-4 py-3 transition-colors hover:text-[#030A8C]">Sign In</a>
+        <a href="#pricing" class="bg-[#F29F05] text-[#0D0D0D] px-6 py-4 rounded-2xl font-black text-center shadow-lg shadow-[#F29F05]/20 transition-all hover:scale-105">
           Get Started Now
         </a>
       </div>
@@ -80,12 +81,27 @@ const { currentPage = 'home' } = Astro.props;
   </div>
 </nav>
 
+<!-- MOBILE SPACER - Prevents hero section overlap -->
+<div id="nav-spacer" class="h-0 md:hidden transition-all duration-500"></div>
+
 <script>
   const navbar = document.getElementById('navbar');
+  const navSpacer = document.getElementById('nav-spacer');
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   const menuIcon = document.getElementById('menu-icon');
   const closeIcon = document.getElementById('close-icon');
+
+  // Calculate navbar height dynamically
+  function updateNavHeight() {
+    const navHeight = navbar?.offsetHeight || 0;
+    const menuHeight = mobileMenu?.classList.contains('hidden') ? 0 : mobileMenu?.offsetHeight || 0;
+    const totalHeight = navHeight + menuHeight;
+    
+    if (navSpacer) {
+      navSpacer.style.height = totalHeight + 'px';
+    }
+  }
 
   // Sticky Scroll Logic: Adds padding on scroll for "floating" effect
   window.addEventListener('scroll', () => {
@@ -96,6 +112,7 @@ const { currentPage = 'home' } = Astro.props;
       navbar?.classList.add('py-4');
       navbar?.classList.remove('py-2');
     }
+    updateNavHeight();
   });
 
   // Toggle Mobile Menu
@@ -110,6 +127,8 @@ const { currentPage = 'home' } = Astro.props;
       menuIcon?.classList.remove('hidden');
       closeIcon?.classList.add('hidden');
     }
+    // Update spacer height after menu toggle
+    setTimeout(updateNavHeight, 0);
   });
 
   // Auto-close on link click
@@ -118,8 +137,26 @@ const { currentPage = 'home' } = Astro.props;
       mobileMenu?.classList.add('hidden');
       menuIcon?.classList.remove('hidden');
       closeIcon?.classList.add('hidden');
+      // Update spacer height after menu closes
+      setTimeout(updateNavHeight, 0);
     });
   });
+
+  // Initialize on page load
+  window.addEventListener('load', updateNavHeight);
+  
+  // Handle window resize
+  window.addEventListener('resize', updateNavHeight);
+
+  // Observe navbar changes
+  const observer = new MutationObserver(updateNavHeight);
+  if (navbar) {
+    observer.observe(navbar, { 
+      attributes: true, 
+      childList: true, 
+      subtree: true 
+    });
+  }
 </script>
 
 <style>
@@ -127,5 +164,20 @@ const { currentPage = 'home' } = Astro.props;
   
   nav {
     font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  #mobile-menu {
+    animation: slideDown 300ms ease-out forwards;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>
