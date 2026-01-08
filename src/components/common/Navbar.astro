@@ -1,5 +1,6 @@
 ---
-/** * PREMIUM TITAN NAVIGATION
+/** * PREMIUM TITAN NAVIGATION v2.1
+ * Fixed: Sticky positioning for better mobile Hero visibility.
  * Features: Floating Glassmorphism, Interactive Hover States, Mobile Logic
  */
 interface Props {
@@ -9,9 +10,9 @@ interface Props {
 const { currentPage = 'home' } = Astro.props;
 ---
 
-<nav class="fixed top-0 z-[100] w-full px-4 md:px-8 py-4 transition-all duration-500" id="navbar">
+<nav class="sticky top-0 z-[100] w-full bg-white px-4 md:px-8 py-4 transition-all duration-500" id="navbar">
   <div class="max-w-7xl mx-auto bg-white/80 backdrop-blur-2xl border border-gray-100 rounded-[24px] px-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300">
-    <div class="flex h-20 items-center justify-between">
+    <div class="flex h-16 md:h-20 items-center justify-between">
       
       <a href="/" class="group flex items-center gap-3">
         <div class="w-10 h-10 bg-[#030A8C] rounded-xl flex items-center justify-center shadow-lg shadow-[#030A8C]/20 group-hover:rotate-12 transition-transform duration-300">
@@ -63,16 +64,16 @@ const { currentPage = 'home' } = Astro.props;
       </button>
     </div>
 
-    <div id="mobile-menu" class="hidden md:hidden pb-8 animate-in fade-in slide-in-from-top-4 duration-300">
-      <div class="flex flex-col gap-4">
+    <div id="mobile-menu" class="hidden md:hidden pb-8 overflow-hidden transition-all duration-300">
+      <div class="flex flex-col gap-2 mt-2">
         {['Features', 'Pricing', 'How It Works', 'Testimonials'].map((item) => (
-          <a href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} class="text-lg font-bold text-[#0D0D0D] px-4 py-3 rounded-2xl hover:bg-gray-50">
+          <a href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} class="text-lg font-bold text-[#0D0D0D] px-4 py-3 rounded-2xl hover:bg-gray-50 transition-colors">
             {item}
           </a>
         ))}
-        <div class="h-px bg-gray-100 my-2"></div>
+        <div class="h-px bg-gray-100 my-4 mx-4"></div>
         <a href="/signin" class="text-lg font-bold text-[#0D0D0D] px-4 py-3">Sign In</a>
-        <a href="#pricing" class="bg-[#F29F05] text-[#0D0D0D] px-6 py-4 rounded-2xl font-black text-center shadow-lg shadow-[#F29F05]/20">
+        <a href="#pricing" class="bg-[#F29F05] text-[#0D0D0D] px-6 py-4 rounded-2xl font-black text-center shadow-lg shadow-[#F29F05]/20 mt-2 mx-2">
           Get Started Now
         </a>
       </div>
@@ -87,7 +88,7 @@ const { currentPage = 'home' } = Astro.props;
   const menuIcon = document.getElementById('menu-icon');
   const closeIcon = document.getElementById('close-icon');
 
-  // Sticky Scroll Logic: Adds padding on scroll for "floating" effect
+  // Sticky Scroll Logic: Subtle contraction on scroll
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) {
       navbar?.classList.add('py-2');
@@ -105,10 +106,13 @@ const { currentPage = 'home' } = Astro.props;
       mobileMenu?.classList.remove('hidden');
       menuIcon?.classList.add('hidden');
       closeIcon?.classList.remove('hidden');
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = 'hidden';
     } else {
       mobileMenu?.classList.add('hidden');
       menuIcon?.classList.remove('hidden');
       closeIcon?.classList.add('hidden');
+      document.body.style.overflow = 'auto';
     }
   });
 
@@ -118,6 +122,7 @@ const { currentPage = 'home' } = Astro.props;
       mobileMenu?.classList.add('hidden');
       menuIcon?.classList.remove('hidden');
       closeIcon?.classList.add('hidden');
+      document.body.style.overflow = 'auto';
     });
   });
 </script>
@@ -127,5 +132,15 @@ const { currentPage = 'home' } = Astro.props;
   
   nav {
     font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* Transition for mobile menu appearing */
+  #mobile-menu:not(.hidden) {
+    animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 </style>
