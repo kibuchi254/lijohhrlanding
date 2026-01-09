@@ -19,6 +19,7 @@ export default defineConfig({
       'localhost',
       '.fcapp.run',
       'ws-fdcb-cdffbea-mhakietgxu.cn-hongkong-vpc.fcapp.run',
+      'lijohhr.co.ke'
     ],
   },
   vite: {

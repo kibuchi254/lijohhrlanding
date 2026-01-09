@@ -1,85 +1,83 @@
 ---
+import CookieConsent from '../components/CookieConsent.astro';
 import '../styles/global.css';
 
 interface Props {
-  title: string;
+  title?: string;
   description?: string;
   image?: string;
   canonicalURL?: string;
 }
 
 const {
-  title = 'LijohHr - AI-Powered HR & Payroll Management Platform',
-  description = 'Transform your workforce management with intelligent automation, seamless payroll processing, and AI-driven insights. Pricing: Yearly Package 50K+5K, Monthly Package 15K+5K. 10K+ companies trust LijohHr.',
-  image = '/lijohhr-hero.png',
+  title = 'LijohHr | AI-Powered HR, Payroll & Task Management OS for Kenya',
+  description = 'The ultimate Business OS for Kenyan enterprises. Automate Payroll, KRA compliance, M-Pesa payouts, and team productivity with AI reasoning. Pricing from KES 15,000.',
+  image = '/lijohhr-og.png',
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
 } = Astro.props;
 
+/**
+ * SEO STRATEGY: Structured Data for Google Rich Results
+ * Includes localized pricing and rating metrics
+ */
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'LijohHr',
-  applicationCategory: 'BusinessApplication',
-  description: description,
-  url: Astro.site,
-  image: new URL(image, Astro.site).href,
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'USD',
-    description: 'Free trial available',
+  'name': 'LijohHr',
+  'operatingSystem': 'Web-based',
+  'applicationCategory': 'BusinessApplication',
+  'description': description,
+  'url': canonicalURL,
+  'image': new URL(image, Astro.site).href,
+  'offers': {
+    '@type': 'AggregateOffer',
+    'lowPrice': '15000',
+    'highPrice': '50000',
+    'priceCurrency': 'KES',
+    'offerCount': '2'
   },
-  author: {
-    '@type': 'Organization',
-    name: 'LijohHr',
-  },
-  aggregateRating: {
+  'aggregateRating': {
     '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    reviewCount: '1250',
-  },
+    'ratingValue': '4.9',
+    'reviewCount': '1250'
+  }
 };
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/l.png" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
 
-    <!-- Open Graph / Facebook -->
+    <meta name="geo.region" content="KE" />
+    <meta name="geo.placename" content="Nairobi" />
+
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, Astro.site).href} />
-    <meta property="og:site_name" content="LijohHr" />
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image, Astro.site).href} />
 
-    <!-- Additional SEO -->
-    <link rel="canonical" href={canonicalURL} />
-    <meta name="keywords" content="HR management, payroll system, AI-powered HR, workforce management, employee management, HR software, payroll automation" />
-    <meta name="author" content="LijohHr" />
+    <meta name="keywords" content="HR management Kenya, payroll system M-Pesa, KRA automation software, AI workforce management, iTax automated filing, employee productivity tools" />
     <meta name="robots" content="index, follow" />
-    <meta name="googlebot" content="index, follow" />
 
-    <!-- Schema.org Structured Data -->
-    <script set:html={JSON.stringify(jsonLd)} type="application/ld+json" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
-  <body>
+  <body class="bg-white text-[#0D0D0D] antialiased">
     <slot />
+    <CookieConsent />
   </body>
 </html>

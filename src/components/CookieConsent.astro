@@ -1,0 +1,64 @@
+---
+/** * TITAN COOKIE CONSENT
+ * Features: LocalStorage persistence, Glassmorphism, Brand colors
+ */
+---
+
+<div id="cookie-banner" class="fixed bottom-6 left-6 z-[200] max-w-sm w-full hidden transform transition-all duration-500 translate-y-10">
+  <div class="bg-white/80 backdrop-blur-2xl border border-gray-100 p-6 rounded-[32px] shadow-[0_20px_50px_rgba(3,10,140,0.15)] relative overflow-hidden">
+    <div class="absolute -top-10 -right-10 w-24 h-24 bg-[#F29F05]/10 rounded-full blur-2xl"></div>
+    
+    <div class="relative z-10">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 bg-[#030A8C] rounded-xl flex items-center justify-center text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path><path d="M8.5 8.5v.01"></path><path d="M16 15.5v.01"></path><path d="M12 12v.01"></path><path d="M11 17v.01"></path><path d="M7 14v.01"></path></svg>
+        </div>
+        <h4 class="text-sm font-black text-[#0D0D0D] uppercase tracking-widest">Cookie Policy</h4>
+      </div>
+
+      <p class="text-xs font-medium text-gray-500 leading-relaxed mb-6">
+        We use cookies to enhance your experience and analyze our traffic for better AI reasoning. By clicking "Accept", you agree to our <a href="/privacy" class="text-[#030A8C] underline">Privacy Policy</a>.
+      </p>
+
+      <div class="flex items-center gap-3">
+        <button id="accept-cookies" class="flex-1 bg-[#030A8C] text-white py-3 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-[#0D0D0D] transition-all">
+          Accept All
+        </button>
+        <button id="decline-cookies" class="px-4 py-3 rounded-xl border border-gray-100 text-gray-400 font-bold text-[10px] uppercase hover:bg-gray-50 transition-all">
+          Decline
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('accept-cookies');
+  const declineBtn = document.getElementById('decline-cookies');
+
+  // Check if user has already made a choice
+  const cookieChoice = localStorage.getItem('lijohhr-cookies');
+
+  if (!cookieChoice) {
+    setTimeout(() => {
+      banner?.classList.remove('hidden');
+      setTimeout(() => banner?.classList.remove('translate-y-10'), 100);
+    }, 2000);
+  }
+
+  acceptBtn?.addEventListener('click', () => {
+    localStorage.setItem('lijohhr-cookies', 'accepted');
+    hideBanner();
+  });
+
+  declineBtn?.addEventListener('click', () => {
+    localStorage.setItem('lijohhr-cookies', 'declined');
+    hideBanner();
+  });
+
+  function hideBanner() {
+    banner?.classList.add('translate-y-10', 'opacity-0');
+    setTimeout(() => banner?.classList.add('hidden'), 500);
+  }
+</script>
