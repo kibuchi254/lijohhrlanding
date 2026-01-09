@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'lijohhr-app',
+      name: 'lijohhr',
       script: './dist/server/entry.mjs',
       instances: 'max',
       exec_mode: 'cluster',
