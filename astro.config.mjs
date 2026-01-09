@@ -1,41 +1,26 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import node from '@astrojs/node';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  // ESSENTIAL FOR SEO: Tells Astro the base URL for absolute links
+  // 1. YOUR BASE URL (Crucial for SEO images)
   site: 'https://lijohhr.co.ke',
   
-  integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
-  ],
-  
-  // NODE SSR CONFIGURATION
+  // 2. SSR OUTPUT
   output: 'server',
   adapter: node({
     mode: 'standalone',
   }),
 
+  // 3. INTEGRATIONS
+  integrations: [
+    tailwind({ applyBaseStyles: false }),
+    sitemap(), // Automatically handles your sitemap
+  ],
+
   compress: true,
-  build: {
-    inlineStylesheets: 'auto',
-  },
-  
   server: {
-    allowedHosts: [
-      'localhost',
-      'lijohhr.co.ke'
-    ],
-  },
-  
-  vite: {
-    server: {
-      allowedHosts: true,
-      hmr: {
-        protocol: 'ws',
-      },
-    },
+    allowedHosts: ['localhost', 'lijohhr.co.ke'],
   },
 });
