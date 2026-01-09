@@ -13,12 +13,15 @@ const {
   title = 'LijohHr | AI-Powered HR, Payroll & Task Management OS for Kenya',
   description = 'The ultimate Business OS for Kenyan enterprises. Automate Payroll, KRA compliance, M-Pesa payouts, and team productivity with AI reasoning. Pricing from KES 15,000.',
   image = '/lijohhr-og.png',
-  canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
 } = Astro.props;
+
+// SSR FIX: Ensure we have a base URL for absolute social images
+const siteUrl = Astro.site ? Astro.site.href : 'https://lijohhr.co.ke';
+const fullImageURL = new URL(image, siteUrl).href;
+const canonicalURL = new URL(Astro.url.pathname, siteUrl).href;
 
 /**
  * SEO STRATEGY: Structured Data for Google Rich Results
- * Includes localized pricing and rating metrics
  */
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -28,7 +31,7 @@ const jsonLd = {
   'applicationCategory': 'BusinessApplication',
   'description': description,
   'url': canonicalURL,
-  'image': new URL(image, Astro.site).href,
+  'image': fullImageURL,
   'offers': {
     '@type': 'AggregateOffer',
     'lowPrice': '15000',
@@ -64,12 +67,15 @@ const jsonLd = {
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, Astro.site).href} />
+    <meta property="og:image" content={fullImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL(image, Astro.site).href} />
+    <meta property="twitter:image" content={fullImageURL} />
 
     <meta name="keywords" content="HR management Kenya, payroll system M-Pesa, KRA automation software, AI workforce management, iTax automated filing, employee productivity tools" />
     <meta name="robots" content="index, follow" />
