@@ -1,6 +1,6 @@
 ---
-/** * PREMIUM TITAN NAVIGATION - LOGO ONLY
- * Features: Floating Glassmorphism, Interactive Hover States, Mobile Logic, Proper Spacing
+/** * PREMIUM TITAN NAVIGATION - LAUNCH READY
+ * Features: Floating Glassmorphism, Interactive Hover States, Mobile Logic, Launch Trigger
  */
 interface Props {
   currentPage?: string;
@@ -11,10 +11,10 @@ const { currentPage = 'home' } = Astro.props;
 
 <nav class="fixed top-0 z-[100] w-full px-4 md:px-8 py-4 transition-all duration-500" id="navbar">
   <div class="max-w-7xl mx-auto bg-white/80 backdrop-blur-2xl border border-gray-100 rounded-[24px] px-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300">
-    <div class="flex h-20 items-center justify-between">
+    <div class="flex h-16 md:h-20 items-center justify-between">
       
-      <a href="/" class="group flex items-center gap-3">
-        <img src="/lijoh.png" alt="Lijoh Logo" class="h-32 w-32 object-cover group-hover:scale-110 transition-transform duration-300" />
+      <a href="/" class="group flex items-center">
+        <img src="/lijoh.png" alt="Lijoh Logo" class="h-20 md:h-24 w-auto object-contain group-hover:scale-105 transition-transform duration-300" />
       </a>
 
       <div class="hidden md:flex items-center gap-10">
@@ -33,10 +33,10 @@ const { currentPage = 'home' } = Astro.props;
         <div class="h-6 w-px bg-gray-100 mx-2"></div>
 
         <div class="flex items-center gap-6">
-          <a href="/signin" class="text-sm font-black text-[#0D0D0D] hover:text-[#030A8C] transition-colors">Sign In</a>
+          <a href="#" class="launch-trigger-btn text-sm font-black text-[#0D0D0D] hover:text-[#030A8C] transition-colors">Sign In</a>
           <a
-            href="#pricing"
-            class="bg-[#030A8C] text-white px-7 py-3 rounded-xl font-black text-sm shadow-xl shadow-[#030A8C]/20 hover:bg-[#0D0D0D] hover:scale-105 transition-all duration-300 flex items-center gap-2"
+            href="#"
+            class="launch-trigger-btn bg-[#030A8C] text-white px-7 py-3 rounded-xl font-black text-sm shadow-xl shadow-[#030A8C]/20 hover:bg-[#0D0D0D] hover:scale-105 transition-all duration-300 flex items-center gap-2"
           >
             Get Started
             <svg class="h-4 w-4 text-[#F29F05]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
@@ -60,8 +60,7 @@ const { currentPage = 'home' } = Astro.props;
       </button>
     </div>
 
-    <!-- MOBILE MENU - Now inside nav for proper z-stacking -->
-    <div id="mobile-menu" class="hidden md:hidden pb-8 animate-in fade-in slide-in-from-top-4 duration-300 max-h-[calc(100vh-120px)] overflow-y-auto">
+    <div id="mobile-menu" class="hidden md:hidden pb-8 animate-in fade-in slide-in-from-top-4 duration-300">
       <div class="flex flex-col gap-4">
         {['Features', 'Pricing', 'How It Works', 'Testimonials'].map((item) => (
           <a href={`#${item.toLowerCase().replace(/\s+/g, '-')}`} class="text-lg font-bold text-[#0D0D0D] px-4 py-3 rounded-2xl hover:bg-gray-50 transition-colors">
@@ -69,8 +68,8 @@ const { currentPage = 'home' } = Astro.props;
           </a>
         ))}
         <div class="h-px bg-gray-100 my-2"></div>
-        <a href="/signin" class="text-lg font-bold text-[#0D0D0D] px-4 py-3 transition-colors hover:text-[#030A8C]">Sign In</a>
-        <a href="#pricing" class="bg-[#F29F05] text-[#0D0D0D] px-6 py-4 rounded-2xl font-black text-center shadow-lg shadow-[#F29F05]/20 transition-all hover:scale-105">
+        <a href="#" class="launch-trigger-btn text-lg font-bold text-[#0D0D0D] px-4 py-3 transition-colors hover:text-[#030A8C]">Sign In</a>
+        <a href="#" class="launch-trigger-btn bg-[#F29F05] text-[#0D0D0D] px-6 py-4 rounded-2xl font-black text-center shadow-lg shadow-[#F29F05]/20 transition-all active:scale-95">
           Get Started Now
         </a>
       </div>
@@ -78,29 +77,40 @@ const { currentPage = 'home' } = Astro.props;
   </div>
 </nav>
 
-<!-- MOBILE SPACER - Prevents hero section overlap -->
-<div id="nav-spacer" class="h-0 md:hidden transition-all duration-500"></div>
-
 <script>
   const navbar = document.getElementById('navbar');
-  const navSpacer = document.getElementById('nav-spacer');
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   const menuIcon = document.getElementById('menu-icon');
   const closeIcon = document.getElementById('close-icon');
+  
+  // LAUNCH OVERLAY ELEMENTS
+  const launchOverlay = document.getElementById('launch-overlay');
+  const launchCard = document.getElementById('launch-card');
 
-  // Calculate navbar height dynamically
-  function updateNavHeight() {
-    const navHeight = navbar?.offsetHeight || 0;
-    const menuHeight = mobileMenu?.classList.contains('hidden') ? 0 : mobileMenu?.offsetHeight || 0;
-    const totalHeight = navHeight + menuHeight;
-    
-    if (navSpacer) {
-      navSpacer.style.height = totalHeight + 'px';
-    }
-  }
+  // TRIGGER LOGIC for Sign In and Get Started
+  const launchButtons = document.querySelectorAll('.launch-trigger-btn');
+  
+  launchButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      // Close mobile menu if it's open
+      mobileMenu?.classList.add('hidden');
+      menuIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
 
-  // Sticky Scroll Logic: Adds padding on scroll for "floating" effect
+      if (launchOverlay && launchCard) {
+        launchOverlay.classList.remove('hidden');
+        launchOverlay.classList.add('flex');
+        setTimeout(() => {
+          launchCard.classList.remove('scale-95', 'opacity-0', 'translate-y-10');
+        }, 10);
+      }
+    });
+  });
+
+  // Sticky Scroll Logic
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) {
       navbar?.classList.add('py-2');
@@ -109,7 +119,6 @@ const { currentPage = 'home' } = Astro.props;
       navbar?.classList.add('py-4');
       navbar?.classList.remove('py-2');
     }
-    updateNavHeight();
   });
 
   // Toggle Mobile Menu
@@ -124,36 +133,16 @@ const { currentPage = 'home' } = Astro.props;
       menuIcon?.classList.remove('hidden');
       closeIcon?.classList.add('hidden');
     }
-    // Update spacer height after menu toggle
-    setTimeout(updateNavHeight, 0);
   });
 
-  // Auto-close on link click
-  document.querySelectorAll('#mobile-menu a').forEach(link => {
+  // Auto-close on nav link click
+  document.querySelectorAll('#mobile-menu a:not(.launch-trigger-btn)').forEach(link => {
     link.addEventListener('click', () => {
       mobileMenu?.classList.add('hidden');
       menuIcon?.classList.remove('hidden');
       closeIcon?.classList.add('hidden');
-      // Update spacer height after menu closes
-      setTimeout(updateNavHeight, 0);
     });
   });
-
-  // Initialize on page load
-  window.addEventListener('load', updateNavHeight);
-  
-  // Handle window resize
-  window.addEventListener('resize', updateNavHeight);
-
-  // Observe navbar changes
-  const observer = new MutationObserver(updateNavHeight);
-  if (navbar) {
-    observer.observe(navbar, { 
-      attributes: true, 
-      childList: true, 
-      subtree: true 
-    });
-  }
 </script>
 
 <style>
@@ -161,20 +150,5 @@ const { currentPage = 'home' } = Astro.props;
   
   nav {
     font-family: 'Plus Jakarta Sans', sans-serif;
-  }
-
-  #mobile-menu {
-    animation: slideDown 300ms ease-out forwards;
-  }
-
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 </style>

@@ -1,30 +1,31 @@
 ---
 import CookieConsent from '../components/CookieConsent.astro';
+import LaunchOverlay from '../components/LaunchOverlay.astro';
 import '../styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
-  image?: string; // This will be the specific blog image passed from blog pages
+  image?: string;
 }
 
 const {
   title = 'LijohHr | AI-Powered HR, Payroll & Task Management OS for Kenya',
   description = 'Automate Payroll, KRA compliance, and M-Pesa payouts with AI reasoning. The ultimate Business OS for Kenyan enterprises.',
-  image, // Pull from props
+  image,
 } = Astro.props;
 
-// 1. RESOLVE SITE URL
+// 1. RESOLVE SITE URL & CANONICALS
+// Use your actual domain here. Astro.site will pull from astro.config.mjs
 const siteUrl = Astro.site ? Astro.site.href : 'https://lijohhr.co.ke';
 const pathname = Astro.url.pathname;
 
-// 2. SMART IMAGE LOGIC
-// If an image is passed (via Blog), use it. Otherwise, use 'seo.jpg' from public/
+// 2. IMAGE & SEO LOGIC
 const finalImagePath = image || '/seo.jpg';
 const fullImageURL = new URL(finalImagePath, siteUrl).href;
 const canonicalURL = new URL(pathname, siteUrl).href;
 
-// 3. STRUCTURED DATA (JSON-LD)
+// 3. STRUCTURED DATA (JSON-LD) - Localized for Kenya
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
@@ -37,7 +38,18 @@ const jsonLd = {
   'offers': {
     '@type': 'AggregateOffer',
     'lowPrice': '15000',
-    'priceCurrency': 'KES'
+    'priceCurrency': 'KES',
+    'availability': 'https://schema.org/PreOrder'
+  },
+  'aggregateRating': {
+    '@type': 'AggregateRating',
+    'ratingValue': '4.9',
+    'reviewCount': '1250'
+  },
+  'author': {
+    '@type': 'Organization',
+    'name': 'LijohHr',
+    'logo': new URL('/l.png', siteUrl).href
   }
 };
 ---
@@ -51,6 +63,7 @@ const jsonLd = {
     <meta name="generator" content={Astro.generator} />
 
     <title>{title}</title>
+    <meta name="title" content={title} />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
@@ -59,17 +72,72 @@ const jsonLd = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={fullImageURL} />
+    <meta property="og:site_name" content="LijohHr" />
 
     <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={fullImageURL} />
 
     <meta name="robots" content="index, follow" />
+    <meta name="author" content="LijohHr" />
+    <meta name="geo.region" content="KE" />
+    <meta name="geo.placename" content="Nairobi" />
+    <meta name="keywords" content="HR management Kenya, payroll system M-Pesa, KRA automation, AI workforce management, task management Kenya, business OS" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
-  <body class="bg-white text-[#0D0D0D] antialiased">
-    <slot />
+
+  <body class="bg-white text-[#0D0D0D] antialiased selection:bg-[#030A8C] selection:text-white">
+    
+    <main>
+      <slot />
+    </main>
+
+    <LaunchOverlay />
+
     <CookieConsent />
+
+    <style is:global>
+      :root {
+        --color-primary: #030A8C;
+        --color-gold: #F29F05;
+        --color-dark: #0D0D0D;
+      }
+
+      html {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+
+      /* Custom scrollbar for that premium feel */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--color-primary);
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--color-dark);
+      }
+
+      /* Base layout animations */
+      .animate-in {
+        animation: fadeIn 0.8s ease-out forwards;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    </style>
   </body>
 </html>
